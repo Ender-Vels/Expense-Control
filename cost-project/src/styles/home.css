@@ -1,0 +1,89 @@
+.home{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.home_auth{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    width: 500px;
+    height: 220px;
+    border: 2px solid rgb(112, 214, 109);
+    border-radius: 10px;
+    background-color: rgb(229, 255, 229);
+    
+}
+.home_auth img{
+    position: absolute;
+    height: 40px;
+}
+.calc{
+    right: -10px;
+    top: -20px;
+    rotate: -20deg;
+}
+.note{
+    left: -10px;
+    bottom: -20px;
+    rotate: -20deg;
+}
+
+.home_auth.active{
+    transform:scale(1.2) ;
+}
+
+.home_greet{
+    font-size: 20px;
+    margin: 24px;
+    color: rgb(39, 180, 47);
+
+}
+
+.home_action{
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+}
+.start_btn{
+    color: green;
+    padding: 10px;
+    font-size: 20px;
+    background: none;
+    outline: none;
+    border: 2px solid green;
+    border-radius: 10px;
+    text-decoration: none;
+}
+
+.start_btn:hover{
+    color: rgb(255, 255, 255);
+    border: 2px solid rgb(255, 255, 255);
+    background-color: green;
+    transition: .4s linear;
+}
+.about_btn{
+    color: rgb(0, 64, 124);
+    padding: 10px;
+    font-size: 20px;
+    background: none;
+    outline: none;
+    border: 2px solid rgb(100, 112, 224);
+    border-radius: 10px;
+    text-decoration: none;
+}
+.about_btn:hover{
+    color: rgb(255, 255, 255);
+    border: 2px solid rgb(255, 255, 255);
+    background-color: rgb(100, 112, 224);;
+    transition: .4s linear;
+}
+
+.home_action{
+    padding: 20px;
+}
+

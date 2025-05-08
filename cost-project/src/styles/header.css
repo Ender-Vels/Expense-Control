@@ -1,0 +1,84 @@
+.header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #8db4ee;
+    padding: 15px;
+}
+.header_title{
+    display: flex;
+    align-items: center;
+}
+.header_title p{
+    font-size: 35px;
+    color: white;
+}
+/*burger menu*/
+.header_burger button{
+    border: none;
+    background: none;
+    margin: 10px;
+    cursor:pointer;
+}
+
+/*burger menu icon*/
+.header_burger img{
+    max-height: 40px;
+}
+/*account info setting*/
+.header_account_icon img{
+    margin: 10px;
+}
+.header_account_icon img{
+    max-height: 35px;
+}
+.header_account{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 20px;
+    cursor: pointer;
+    padding: 5px;
+}
+.header_account:hover{
+    background-color: #7a9edb;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+.header_account_name p{
+    font-size: 18px;
+    color: white;
+}
+
+.header_account_sub{
+    position: absolute;
+    top: 70px;
+    right: 0px;
+    background-color: #8db4ee;
+    padding: 10px;
+    border-radius: 5px;
+    border: 2px solid white;
+    width: 85px;
+
+}
+
+
+.account_settings{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    list-style: none;
+    width: 100%;
+}
+.account_settings button{
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    background: none;
+    border: none;
+    cursor: pointer;
+}

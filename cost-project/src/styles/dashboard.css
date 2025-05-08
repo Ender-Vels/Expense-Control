@@ -1,0 +1,31 @@
+.pie_chart {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 50px auto;
+    height: 100%;
+}
+.pie_chart canvas{
+    width: 300px !important;
+    height: 300px !important;
+    font-size: 20px;
+}
+
+.pie_data{
+    display: flex;
+    max-width: 800px;
+    margin: 0 auto;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
+    padding-bottom: 25px;
+}
+.income_data{
+    color: #36A2EB;
+    font-size: 30px;
+}
+.expenses_data{
+    color: #FF6384;
+    font-size: 30px;
+}
