@@ -1,6 +1,6 @@
 <template>
     <div class="login">
-        <form @submit.prevent="user_storage.register_user(login,password,confirm_password,email,phone,router)" action="">
+        <form @submit.prevent="register">
             <div class="form_block">
                 <img class="man_img" src="../assets/login/man.png" alt="">
                 <div class="form_block_items">
@@ -16,10 +16,13 @@
                     <input type="email" placeholder="Email" v-model="email">
                 </div>
                 <div class="form_block_items">
-                    <input type="text" placeholder="Phone number" v-model="phone">
+                    <input type="text" placeholder="Phone number" v-model="phone" maxlength="10">
                 </div>
                 <div class="form_block_submit">
                     <input type="submit" value="Register">
+                </div>
+                <div class="form_block_register_link">
+                    <router-link to="/login">You have Account?</router-link>
                 </div>
                 <img class="form_img" src="../assets/login/online-survey.png" alt="">
             </div>
@@ -40,8 +43,28 @@ const router = useRouter()
  let email = ref('')
  let phone = ref('')
 //Create store
-let user_storage = user_store()
+let userStore = user_store()
 
+
+
+
+async function register() {
+    if(password.value.length<6){
+        alert("Password length must be 6 symbols minimum")
+    }
+    else if(password.value != confirm_password.value){
+        alert("Password and Confirm password do not match")
+    }
+    else{
+        let data={
+            login: login.value,
+            password: password.value,
+            email: email.value,
+            phone:phone.value
+        }
+        await userStore.register_user(data,router)
+    }
+}
 </script>
 
 <style>

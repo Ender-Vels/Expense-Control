@@ -9,7 +9,7 @@
             </div>
             <div class="home_action">
                 <router-link to="/login" class="start_btn">Get Start</router-link>
-                <router-link class="about_btn">About Service</router-link>
+                <router-link to="/about" class="about_btn" >About Service</router-link>
             </div>
             <img class="note" src="../assets/sticky-notes.png" alt="calc">
         </div>

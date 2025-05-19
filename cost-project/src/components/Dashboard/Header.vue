@@ -7,7 +7,7 @@
                 <div class="header_burger">
                     <button @click="open_side"><img src="../../assets/dash/setting-menu-burger-circle.256x256.png" alt=""></button>
                 </div>
-                <p>DASHBOARD</p>
+                <p>Cost control</p>
             </div>
             <div class="header_account" @click="acc_settings">
                 <div class="header_account_icon">
@@ -18,6 +18,7 @@
               </div>
               <div class="header_account_sub" v-if="is_show_settings">
                         <ul class="account_settings"> 
+                            <li><button @click="change_info">Setting</button></li>
                             <li><button @click="exit">Exit</button></li>
                         </ul>
                     </div>
@@ -27,8 +28,7 @@
 </template>
 
 <script setup>
-    //TODO: crtaete sub_menu for user account
-    //TODO : create  exit
+
     
     import { user_store } from '../../store/user_store';
     import PopUp from './PopUp.vue'
@@ -54,6 +54,10 @@
     }
     function exit(){
         user_storage.logout_user(router)
+    }
+    function change_info(){
+        router.push('/setting')
+        is_show_settings.value = !is_show_settings.value
     }
 
 </script>

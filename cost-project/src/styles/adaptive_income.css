@@ -1,0 +1,34 @@
+@media (max-width:500px) {
+    .income_logo img{
+        max-height: 100px;
+    }
+    .income_logo h2{
+        font-size: 18px;
+    }
+    .icome_input{
+        display: grid;
+        grid-template-columns: 1fr;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+        place-items: center;
+    }
+    .icome_input input{
+        width: 200px;
+        text-align: center;
+    }
+    .categories_type_card{
+        padding: 7px;
+        margin: 5px;
+    }
+    .categories_type_card img{
+        max-height: 30px;
+    }
+    .income_history_item{
+        font-size: 14px;
+        padding: 7px;
+    }
+    .input_btn button{
+        font-size: 17px;
+    }
+}

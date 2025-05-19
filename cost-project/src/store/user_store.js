@@ -8,6 +8,7 @@ export let user_store = defineStore('users',{
         token:null,
         is_auth: false,
         message: '',
+
     }),
     getters:{
         get_name(){
@@ -31,6 +32,15 @@ export let user_store = defineStore('users',{
             else{
                 return "Nothing token"
             }
+        },
+        get_token:(state)=>{
+            let acc_token = localStorage.getItem('token')
+            if (acc_token){
+                return acc_token
+            }
+            else{
+                return "Nothing token"
+            }
         }
     },
     actions:{
@@ -45,71 +55,31 @@ export let user_store = defineStore('users',{
             }
         },
         //register user
-        async register_user(login,password,confirm_password,email,phone,router){
-            if(String(login).length >= 2 ){
+        async register_user(data,router){
+            try{
+                let response = await axios.post("http://127.0.0.1:8000/register",data)
+                alert(response.data.message)
+                router.push('/login')
 
-                if(String(password).length >= 6){
-
-                    if(password == confirm_password){
-                        try{
-                            let data={
-                                login: login,
-                                password: password,
-                                email: email,
-                                phone: phone
-                            }
-                            console.log(data)
-                            let response = await axios.post("http://127.0.0.1:8000/register",data)
-                            alert(response.data.message)
-                            this.message = response.data.message
-                            router.push('/login')
-                        }
-                        catch(err){
-                            alert(this.message)
-                        }
-                    }
-                    else{
-                        alert('Password and confirm password incorrect')
-                    }
-
-                }
-                else{
-                    alert('Password length must be minimum 6 symbols')
-                }
             }
-            else{
-                alert('Login length must be minimum 2 symbols')
+            catch(error){
+                alert(error.response.data.detail)
             }
         },
             //auth user
-        async auth_user(login,password,router){
-            if(String(login).length >= 2){
-                console.log(password)
-                if (String(password).length >=6){
-                    try{
-                        let data = {
-                            login: login,
-                            password: password
-                        }
-                        
+        async auth_user(data,router){
+            try{
+                let response = await axios.post('http://127.0.0.1:8000/auth', data)
+                this.token = response.data.access_token
+                localStorage.setItem('token',this.token)
+                this.token = null
+                this.set_auth_status()
+                router.push({name:'dashboard'})
 
-                        let response = await axios.post('http://127.0.0.1:8000/auth',data)
-                        this.token = response.data.access_token
-                        localStorage.setItem('token',this.token)
-                        this.token = null
-                        this.set_auth_status()
-                        router.push('/dashboard')
-                    }
-                    catch(err){
-                        console.log(err)
-                    }
-                }
-                else{
-                    alert("Wrong! Password are Short!")
-                }
+                
             }   
-            else{
-                alert("Wrong! Login are Short!")
+            catch(error){
+                alert(error.response.data.detail)
             }
         },
         //logout user
@@ -118,6 +88,53 @@ export let user_store = defineStore('users',{
             this.token = null
             this.is_auth = false
             router.push('/login')
+        },
+        //refresh token
+        async refresh_token(){
+            let token = this.get_token
+            let token_data = {
+                token: token
+            }
+            try{
+                let response = await axios.post('http://127.0.0.1:8000/refresh_token', token_data)
+                localStorage.removeItem('token')
+                this.token = response.data.access_token
+                localStorage.setItem('token',this.token)
+                this.token = null
+            }
+            catch(error){
+                console.log(error)
+            }
+        },
+        //change login
+        async change_login(data){
+            try{
+                let response = await axios.put('http://127.0.0.1:8000/put_login', data)
+                alert(response.data.message)
+            }
+            catch(error){
+                console.error(error)
+            }
+        },
+        //change email
+        async change_email(data){
+            try{
+                let response = await axios.put('http://127.0.0.1:8000/change_email', data)
+                alert(response.data.message)
+            }
+            catch(error){
+                console.error(error)
+            }
+        },
+        //change password
+        async change_password(data){
+            try{
+                let response = await axios.put('http://127.0.0.1:8000/change_password', data)
+                alert(response.data.message)
+            }
+            catch(error){
+                console.error(error)
+            }
         },
         
     },

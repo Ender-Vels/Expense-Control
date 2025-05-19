@@ -1,0 +1,26 @@
+@media (max-width: 900px) {
+    .pie_data{
+        margin: 50px;
+    }
+    
+}
+@media (max-width: 500px) {
+    .pie_data{
+        margin: 25px;
+    }
+    .pie_data h2{
+        font-size:18px;
+
+    }
+    .pie_chart_title{
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+    .pie_chart_title h1{
+        font-size: 17px;
+    }
+    .dashboard{
+        max-width: 500px;
+    }
+    
+}

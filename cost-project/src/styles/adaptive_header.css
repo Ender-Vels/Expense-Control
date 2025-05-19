@@ -1,0 +1,13 @@
+@media (max-width:900px) {
+    .header_title p{
+        font-size: 17px;
+    }
+    
+}
+
+@media (max-width: 500px){
+    .header_account_name{
+        display: none;
+        transition: .4s linear;
+    }
+}

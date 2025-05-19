@@ -1,0 +1,71 @@
+.setting{
+    display: flex;
+    justify-content: center;
+   
+}
+
+.setting_block{
+    width: 900px;
+    border: 1px solid  silver;
+    padding: 20px;
+    margin: 20px;
+}
+.setting_iput{
+    display: flex;  
+    align-items: center;
+}
+.setting_iput input{
+    font-size: 20px;
+    padding: 5px;
+    margin: 10px;
+}
+.setting_iput button{
+    font-size: 20px;
+    padding: 5px;
+    margin-left: 10px;
+    background: none;
+    border: 2px solid green;
+    border-radius: 5px;
+    color: green;
+    cursor: pointer;
+}
+.setting_iput button:hover{
+    background-color: green;
+    color: white;
+    transition: .4s linear;
+}
+.setting_description{
+    padding: 5px;
+    font-size: 14px;
+    color: grey;
+}
+.setting_iput_pass{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    align-items: center;
+}
+.setting_iput_pass input{
+    font-size: 20px;
+    padding: 5px;
+    margin: 10px;
+}
+
+.setting_iput_pass button{
+    font-size: 20px;
+    padding: 5px;
+    margin-left: 10px;
+    background: none;
+    border: 2px solid green;
+    border-radius: 5px;
+    color: green;
+    cursor: pointer;
+}
+.setting_iput_pass button:hover{
+    background-color: green;
+    color: white;
+    transition: .4s linear;
+}
+.set_input{
+    display: flex;
+    align-items: center;
+}

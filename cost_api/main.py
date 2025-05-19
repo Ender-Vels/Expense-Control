@@ -57,6 +57,19 @@ class Delete_Income_by_id(BaseModel):
 
 class Get_Expenses_Type(BaseModel):
     id:int
+class change_login_data(BaseModel):
+    login: str
+    user_id: int
+class change_email_data(BaseModel):
+    email:str
+    user_id: int
+class change_password_data(BaseModel):
+    user_id: int
+    old_pass: str
+    new_pass: str
+
+class Token(BaseModel):
+    token: str
 #----------------------Function--------------------------#
 
 #DB Connection
@@ -119,19 +132,20 @@ async def authorize_user(user:User_Auth):
         acc = await conn.fetchrow("""SELECT * FROM users WHERE login = $1""",user.login)
         if not acc:
             raise HTTPException(status_code=500, detail="Wrong login or password")
-        if not verify_password(user.password,acc[2]):
+        if not verify_password(user.password,acc["password"]):
             raise HTTPException(status_code=500, detail="Wrong login or password")
-
-        access_token = create_access_token(data={"id": acc[0],
+        else:
+            access_token = create_access_token(data={"id": acc[0],
                                                  "login": acc[1],
                                                  "email": acc[3],
                                                  "phone":acc[4]
                                                  
                                                  },expires_delta=timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES))
         
-        return {"access_token": access_token, "token_type": "bearer"}
+            return {"access_token": access_token, "token_type": "bearer"}
+
     except HTTPException:
-        return HTTPException(status_code=500, detail="Wrong data")
+        raise HTTPException(status_code=500, detail="Wrong data")
     finally:
         await close_db_connection(conn)
 
@@ -256,7 +270,97 @@ async def get_sum_expenses(income:Get_Income):
         raise HTTPException(status_code=404, detail='Fatal error! Try Again!')
     finally:
         await close_db_connection(conn)
-        
+
+
+
+
+#Change Login
+@app.put("/put_login")
+async def change_login(user:change_login_data):
+    conn = await connect_to_db()
+    try:
+        data = await conn.fetchrow("""SELECT * FROM users WHERE id = $1""", user.user_id)
+        if not data:
+            raise HTTPException(status_code=500, detail="Empty user")
+        else:
+            login = await conn.fetchrow("""SELECT * FROM users WHERE login = $1""",user.login)
+            if login:
+                raise HTTPException(status_code=500, detail="LOgin is taken")
+            await conn.execute("""UPDATE users SET login = $1 WHERE id = $2""",user.login, user.user_id)
+            return{"message": "Login update!"}
+    except HTTPException:
+        raise HTTPException(status_code=500, detail="Wrong data")
+    finally:
+        await close_db_connection(conn)
+
+#Change Email
+@app.put("/change_email")
+async def change_email(user: change_email_data):
+    conn = await connect_to_db()
+    try:
+        data = await conn.fetchrow("""SELECT * FROM users WHERE id = $1""",user.user_id)
+        if not data:
+            raise HTTPException(status_code=500, detail="Email not found")
+        else:
+            login = await conn.fetchrow("""SELECT * FROM users WHERE login = $1""",user.email)
+            if login:
+                raise HTTPException(status_code=500, detail="LOgin is taken")
+            await conn.execute("""UPDATE users SET email = $1 WHERE id = $2 """,user.email, user.user_id)
+            return{"message":"Email Update!"}
+    except HTTPException:
+        raise HTTPException(status_code=500, detail="Wrong data")
+    finally:
+        await close_db_connection(conn)
+
+
+#Change password
+@app.put("/change_password")
+async def change_password(user: change_password_data):
+    conn = await connect_to_db()
+    try:
+        data = await conn.fetchrow("""SELECT * FROM users WHERE id = $1""", user.user_id)
+        if not data:
+            raise HTTPException(status_code=500, detail="No userdata with this id")
+        elif not verify_password(user.old_pass,data["password"]):
+            raise HTTPException(status_code=500, detail="Old Password Wrong")
+        else:
+            hashed_password = hash_password(user.new_pass)
+            await conn.execute("""UPDATE users SET password = $1 WHERE id = $2""",hashed_password, user.user_id)
+            return{"message":"Password Changed!"}
+            
+    except HTTPException:
+        raise HTTPException(status_code=500, detail="Wrong data")
+    finally:
+        await close_db_connection(conn)
+
+#refresh token
+@app.post('/refresh_token')
+async def refresh_token(token : Token):
+    token_data = jwt.decode(token.token,SECRET_KEY, algorithms=[ALGORITHM])
+    email = token_data.get("email")
+    conn = await connect_to_db()
+    #check email is realy
+    if not email:
+        raise HTTPException(status_code=500, detail="Token dont have email or incorrect")
+    try:
+        user = await conn.fetchrow("""SELECT * FROM users WHERE email = $1""", email)
+        if not user:
+            raise HTTPException(status_code=500, detail="User with this email not register")
+        else:
+            access_token = create_access_token(data={"id": user["id"],
+                                                 "login": user["login"],
+                                                 "email": user["email"],
+                                                 "phone":user["phone"]
+                                                 
+                                                 },expires_delta=timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES))
+            return {"access_token": access_token, "token_type": "bearer"}
+    except HTTPException:
+        raise HTTPException(status_code=500, detail="Wrong data of token or his incorrect")
+    finally:
+        await close_db_connection(conn)
+
+
+
 #---------------start---------------------------#
 if __name__=="__main__":
     uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)

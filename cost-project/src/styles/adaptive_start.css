@@ -1,0 +1,9 @@
+@media (max-width:600px){
+    .home_auth{
+        max-width: 310px;
+    }
+    .home{
+        padding: 30px;
+        height: 70vh;
+    }
+}

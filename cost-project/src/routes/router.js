@@ -5,6 +5,8 @@ import Register from '../components/Register.vue'
 import Dashboard from '../components/Dashboard/Dashboard.vue'
 import Income from '../components/Dashboard/Income.vue'
 import Expenses from "../components/Dashboard/Expenses.vue";
+import Settings from "../components/Settings.vue";
+import About from "../components/About.vue";
 
 
 let route = createRouter({
@@ -46,6 +48,21 @@ let route = createRouter({
             name: 'expenses',
             component: Expenses,
             meta:{requiresAuth:true}
+            
+        },
+
+        {
+            path: '/setting',
+            name: 'setting',
+            component: Settings,
+            meta:{requiresAuth:true}
+            
+        },
+        {
+            path: '/about',
+            name: 'about',
+            component: About,
+            meta:{requiresAuth:false}
             
         },
         

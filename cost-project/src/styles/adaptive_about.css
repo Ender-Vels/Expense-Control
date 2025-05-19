@@ -1,0 +1,20 @@
+@media (max-width:900px){
+    .about{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 70vh;
+        padding: 0;
+    }
+}
+@media (max-width: 750px) {
+    .about_block{
+        max-width: 400px;
+    }
+}
+
+@media (max-width: 420px) {
+    .about_block{
+        max-width: 300px;
+    }
+}

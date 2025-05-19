@@ -1,6 +1,6 @@
 <template>
     <div class="login">
-        <form @submit.prevent="user_stor.auth_user(login,password,router)" action="">
+        <form @submit.prevent="LoginIn">
             <div class="form_block">
                 <img class="man_img" src="../assets/login/man.png" alt="">
                 <div class="form_block_items">
@@ -25,11 +25,30 @@
 import { ref } from 'vue';
 import { user_store } from '../store/user_store';
 import { useRouter } from 'vue-router';
-let user_stor = user_store()
+let userStore = user_store()
 let router = useRouter()
 
  let login = ref('')
  let password = ref('')
+
+
+ async function LoginIn() {
+    if(login.value.length<4){
+        alert("Login must have 4 or more symbols")
+    }
+    else if(password.value.length<6){
+        alert("Password must have 5 or more symbols")
+    }
+    else{
+        let data={
+            login:login.value,
+            password: password.value
+        }
+        await userStore.auth_user(data,router)
+    }
+ }
+
+
 </script>
 
 <style>
