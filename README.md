@@ -2,7 +2,7 @@ Hello Ender! Today I present to you one of my projects. I hope you will evaluate
 
 So let's move on to our program!
 
-Release Version 0.1
+Release Version 0.2
 
 1. User authentication and registration has been completed.
 
