@@ -2,17 +2,19 @@ Hello Ender! Today I present to you one of my projects. I hope you will evaluate
 
 So let's move on to our program!
 
-Release Version 0.1
+Release Version 0.2
 
 1. User authentication and registration has been completed.
 
 2. Asynchronous addition and deletion of Income and Expenses has been completed, and the history of their addition is also maintained
 
 3. On the main dashboard screen, a Graph with income and expenses is displayed, which automatically replaces the data
+  
+4. Improve and adapt styles
+
+5. Optimize the code
 
 Future work:
 
-1. Improve and adapt styles
-2. Optimize the code
-3. Control the maximum number of income and expenses that is displayed at a time
-4. Add localization for different languages
+1. Control the maximum number of income and expenses that is displayed at a time
+2. Add localization for different languages
